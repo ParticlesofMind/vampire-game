@@ -1,0 +1,33 @@
+[gd_scene load_steps=4 format=3 uid="uid://part2_0001"]
+
+[ext_resource type="Script" path="res://scripts/parts/Part.gd" id="1_partgd"]
+[ext_resource type="PackedScene" path="res://scenes/Player.tscn" id="2_player"]
+
+[node name="Part2" type="Node3D"]
+script = ExtResource("1_partgd")
+part_index = 2
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.866025, -0.25, 0.433013, 0, 0.866025, 0.5, -0.5, -0.433013, 0.75, 0, 5, 0)
+shadow_enabled = true
+
+[node name="Player" parent="." instance=ExtResource("2_player")]
+position = Vector3(0, 1.2, 3.5)
+
+[node name="Floor" type="MeshInstance3D" parent="."]
+transform = Transform3D(10, 0, 0, 0, 1, 0, 0, 0, 10, 0, 0, 0)
+mesh = PlaneMesh { size = Vector2(1, 1) }
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="HudLabel" type="Label" parent="CanvasLayer"]
+unique_name_in_owner = true
+anchors_preset = 0
+offset_left = 24.0
+offset_top = 24.0
+offset_right = 700.0
+offset_bottom = 140.0
+text = "Loading..."
+autowrap_mode = 3
+
+

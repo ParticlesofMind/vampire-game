@@ -1,0 +1,20 @@
+[gd_scene load_steps=2 format=3 uid="uid://c3q0m2c2x7q1s"]
+
+[ext_resource type="Script" path="res://scripts/Player.gd" id="1_6p6gq"]
+
+[node name="Player" type="CharacterBody3D"]
+script = ExtResource("1_6p6gq")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = CapsuleShape3D {
+	radius = 0.35
+	height = 1.4
+}
+
+[node name="CameraPivot" type="Node3D" parent="."]
+position = Vector3(0, 1.6, 0)
+
+[node name="Camera3D" type="Camera3D" parent="CameraPivot"]
+current = true
+
+

@@ -1,0 +1,74 @@
+[gd_scene load_steps=2 format=3 uid="uid://ui_menu_0001"]
+
+[ext_resource type="Script" path="res://scripts/ui/MainMenu.gd" id="1_menugd"]
+
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource("1_menugd")
+
+[node name="Root" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 48.0
+offset_top = 48.0
+offset_right = -48.0
+offset_bottom = -48.0
+
+[node name="VBox" type="VBoxContainer" parent="Root"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 12
+
+[node name="Title" type="Label" parent="Root/VBox"]
+layout_mode = 2
+text = "Vampire Game\nNew York, 1918"
+horizontal_alignment = 1
+
+[node name="NewGameButton" type="Button" parent="Root/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Start Part 1"
+
+[node name="ContinueButton" type="Button" parent="Root/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Continue"
+disabled = true
+
+[node name="PartSelectLabel" type="Label" parent="Root/VBox"]
+layout_mode = 2
+text = "Part Select"
+
+[node name="Part1Button" type="Button" parent="Root/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Part 1"
+
+[node name="Part2Button" type="Button" parent="Root/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Part 2"
+disabled = true
+
+[node name="Part3Button" type="Button" parent="Root/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Part 3"
+disabled = true
+
+[node name="Spacer" type="Control" parent="Root/VBox"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="QuitButton" type="Button" parent="Root/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Quit"
+
+

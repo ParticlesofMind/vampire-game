@@ -1,0 +1,38 @@
+[gd_scene load_steps=3 format=3 uid="uid://b2v1x6h5g0u1l"]
+
+[ext_resource type="Script" path="res://scripts/Main.gd" id="1_3xj0p"]
+[ext_resource type="PackedScene" uid="uid://c3q0m2c2x7q1s" path="res://scenes/Player.tscn" id="2_8c3s1"]
+
+[node name="Main" type="Node3D"]
+script = ExtResource("1_3xj0p")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.866025, -0.25, 0.433013, 0, 0.866025, 0.5, -0.5, -0.433013, 0.75, 0, 5, 0)
+shadow_enabled = true
+
+[node name="Player" parent="." instance=ExtResource("2_8c3s1")]
+position = Vector3(0, 1.2, 3.5)
+
+[node name="Floor" type="MeshInstance3D" parent="."]
+transform = Transform3D(8, 0, 0, 0, 1, 0, 0, 0, 8, 0, 0, 0)
+mesh = PlaneMesh {
+	size = Vector2(1, 1)
+}
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="StatusLabel" type="Label" parent="CanvasLayer"]
+unique_name_in_owner = true
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 32.0
+offset_top = 32.0
+offset_right = -32.0
+offset_bottom = -32.0
+text = "Loading..."
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+

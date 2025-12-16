@@ -1,0 +1,15 @@
+# Godot 4+
+.godot/
+.import/
+export_presets.cfg
+
+# Mono / .NET (if used)
+.mono/
+
+# OS / IDE
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+
