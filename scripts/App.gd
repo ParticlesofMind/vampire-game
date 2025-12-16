@@ -115,5 +115,3 @@ func _save() -> void:
 	var cfg := ConfigFile.new()
 	cfg.set_value("progress", "unlocked_part", _unlocked_part)
 	cfg.save(SAVE_PATH)
-
-

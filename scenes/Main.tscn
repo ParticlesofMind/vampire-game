@@ -13,11 +13,19 @@ shadow_enabled = true
 [node name="Player" parent="." instance=ExtResource("2_8c3s1")]
 position = Vector3(0, 1.2, 3.5)
 
-[node name="Floor" type="MeshInstance3D" parent="."]
+[node name="Floor" type="StaticBody3D" parent="."]
+collision_layer = 1
+collision_mask = 1
+
+[node name="Mesh" type="MeshInstance3D" parent="Floor"]
 transform = Transform3D(8, 0, 0, 0, 1, 0, 0, 0, 8, 0, 0, 0)
-mesh = PlaneMesh {
-	size = Vector2(1, 1)
+mesh = PlaneMesh { size = Vector2(1, 1) }
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor"]
+shape = BoxShape3D {
+	size = Vector3(16, 0.2, 16)
 }
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
