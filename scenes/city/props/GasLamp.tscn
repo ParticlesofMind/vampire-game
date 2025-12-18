@@ -1,0 +1,39 @@
+[gd_scene load_steps=5 format=3 uid="uid://nyc_prop_gaslamp"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_Post"]
+top_radius = 0.1
+bottom_radius = 0.15
+height = 3.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_Metal"]
+albedo_color = Color(0.1, 0.1, 0.1, 1)
+metallic = 0.8
+roughness = 0.4
+
+[sub_resource type="BoxMesh" id="BoxMesh_Lamp"]
+size = Vector3(0.4, 0.6, 0.4)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_Glass"]
+transparency = 1
+albedo_color = Color(1, 0.9, 0.8, 0.3)
+emission_enabled = true
+emission = Color(1, 0.8, 0.6, 1)
+emission_energy_multiplier = 2.0
+
+[node name="GasLamp" type="Node3D"]
+
+[node name="Post" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+mesh = SubResource("CylinderMesh_Post")
+material_override = SubResource("StandardMaterial3D_Metal")
+
+[node name="LampHead" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.2, 0)
+mesh = SubResource("BoxMesh_Lamp")
+material_override = SubResource("StandardMaterial3D_Glass")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="LampHead"]
+light_color = Color(1, 0.784314, 0.588235, 1)
+light_energy = 2.0
+shadow_enabled = true
+omni_range = 15.0

@@ -1,0 +1,38 @@
+[gd_scene load_steps=3 format=3 uid="uid://nyc_landmark_bridge"]
+
+[ext_resource type="Script" path="res://scripts/city/LandmarkBridge.gd" id="1_bridge"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_Stone"]
+albedo_color = Color(0.45, 0.45, 0.45, 1)
+roughness = 0.8
+
+[node name="LandmarkBridge" type="Node3D"]
+script = ExtResource("1_bridge")
+
+[node name="CSGCombiner3D" type="CSGCombiner3D" parent="."]
+use_collision = true
+
+[node name="Pillar1" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20, 15, 0)
+size = Vector3(10, 30, 10)
+material = SubResource("StandardMaterial3D_Stone")
+
+[node name="Arch1" type="CSGBox3D" parent="CSGCombiner3D/Pillar1"]
+operation = 2
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -5, 0)
+size = Vector3(6, 12, 12)
+
+[node name="Pillar2" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20, 15, 0)
+size = Vector3(10, 30, 10)
+material = SubResource("StandardMaterial3D_Stone")
+
+[node name="Arch2" type="CSGBox3D" parent="CSGCombiner3D/Pillar2"]
+operation = 2
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -5, 0)
+size = Vector3(6, 12, 12)
+
+[node name="Deck" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 12, 0)
+size = Vector3(60, 2, 8)
+material = SubResource("StandardMaterial3D_Stone")
