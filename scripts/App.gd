@@ -56,6 +56,23 @@ func _ensure_input_actions() -> void:
 	_ensure_key_action("jump", [KEY_SPACE])
 	_ensure_key_action("sprint", [KEY_SHIFT])
 
+func _ensure_key_action(action_name: StringName, keycodes: Array[int]) -> void:
+	if not InputMap.has_action(action_name):
+		InputMap.add_action(action_name)
+
+	# Only add missing keys (avoid duplicates if you later set these in the editor).
+	var existing_keycodes: Dictionary = {}
+	for ev in InputMap.action_get_events(action_name):
+		if ev is InputEventKey:
+			existing_keycodes[ev.keycode] = true
+
+	for kc in keycodes:
+		if existing_keycodes.has(kc):
+			continue
+		var e := InputEventKey.new()
+		e.keycode = kc
+		InputMap.action_add_event(action_name, e)
+
 func _toggle_pause() -> void:
 	if _pause_menu == null:
 		_pause_menu = pause_menu_scene.instantiate() as CanvasLayer
@@ -65,7 +82,8 @@ func _toggle_pause() -> void:
 		if _pause_menu.has_signal("back_to_menu"):
 			_pause_menu.connect("back_to_menu", Callable(self, "_on_back_to_menu"))
 		if _pause_menu.has_signal("quit_game"):
-			_pause_menu.connect("quit_game", Callable(self, "_on_quit_game"))
+			# In-game "Quit" should return to the main menu (not exit the app).
+			_pause_menu.connect("quit_game", Callable(self, "_on_back_to_menu"))
 
 	_pause_menu.visible = not _pause_menu.visible
 	_set_paused(_pause_menu.visible)

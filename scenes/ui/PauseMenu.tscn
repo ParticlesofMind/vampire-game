@@ -41,6 +41,6 @@ text = "Back to Menu"
 
 [node name="QuitButton" type="Button" parent="Panel/VBox"]
 unique_name_in_owner = true
-text = "Quit"
+text = "Quit to Menu"
 
 

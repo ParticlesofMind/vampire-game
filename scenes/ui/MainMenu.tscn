@@ -9,6 +9,12 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource("1_menugd")
 
+[node name="Background" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(0.0431373, 0.027451, 0.0392157, 1)
+
 [node name="Root" type="MarginContainer" parent="."]
 layout_mode = 1
 anchors_preset = 15
@@ -19,56 +25,154 @@ offset_top = 48.0
 offset_right = -48.0
 offset_bottom = -48.0
 
-[node name="VBox" type="VBoxContainer" parent="Root"]
+[node name="Layout" type="HBoxContainer" parent="Root"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 24
+
+[node name="MenuPanel" type="PanelContainer" parent="Root/Layout"]
+layout_mode = 2
+custom_minimum_size = Vector2(360, 0)
+size_flags_vertical = 3
+
+[node name="MenuMargin" type="MarginContainer" parent="Root/Layout/MenuPanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 18
+theme_override_constants/margin_top = 18
+theme_override_constants/margin_right = 18
+theme_override_constants/margin_bottom = 18
+
+[node name="VBox" type="VBoxContainer" parent="Root/Layout/MenuPanel/MenuMargin"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_constants/separation = 12
 
-[node name="Title" type="Label" parent="Root/VBox"]
+[node name="Title" type="Label" parent="Root/Layout/MenuPanel/MenuMargin/VBox"]
 layout_mode = 2
 text = "Vampire Game\nNew York, 1918"
-horizontal_alignment = 1
+horizontal_alignment = 0
 
-[node name="NewGameButton" type="Button" parent="Root/VBox"]
+[node name="NewGameButton" type="Button" parent="Root/Layout/MenuPanel/MenuMargin/VBox"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Start Part 1"
 
-[node name="ContinueButton" type="Button" parent="Root/VBox"]
+[node name="ContinueButton" type="Button" parent="Root/Layout/MenuPanel/MenuMargin/VBox"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Continue"
 disabled = true
 
-[node name="PartSelectLabel" type="Label" parent="Root/VBox"]
+[node name="PartSelectLabel" type="Label" parent="Root/Layout/MenuPanel/MenuMargin/VBox"]
 layout_mode = 2
 text = "Part Select"
 
-[node name="Part1Button" type="Button" parent="Root/VBox"]
+[node name="Part1Button" type="Button" parent="Root/Layout/MenuPanel/MenuMargin/VBox"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Part 1"
 
-[node name="Part2Button" type="Button" parent="Root/VBox"]
+[node name="Part2Button" type="Button" parent="Root/Layout/MenuPanel/MenuMargin/VBox"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Part 2"
 disabled = true
 
-[node name="Part3Button" type="Button" parent="Root/VBox"]
+[node name="Part3Button" type="Button" parent="Root/Layout/MenuPanel/MenuMargin/VBox"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Part 3"
 disabled = true
 
-[node name="Spacer" type="Control" parent="Root/VBox"]
+[node name="Spacer" type="Control" parent="Root/Layout/MenuPanel/MenuMargin/VBox"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="QuitButton" type="Button" parent="Root/VBox"]
+[node name="QuitButton" type="Button" parent="Root/Layout/MenuPanel/MenuMargin/VBox"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Quit"
+
+[node name="PreviewPanel" type="PanelContainer" parent="Root/Layout"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="PreviewMargin" type="MarginContainer" parent="Root/Layout/PreviewPanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 18
+theme_override_constants/margin_top = 18
+theme_override_constants/margin_right = 18
+theme_override_constants/margin_bottom = 18
+
+[node name="PreviewVBox" type="VBoxContainer" parent="Root/Layout/PreviewPanel/PreviewMargin"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 12
+
+[node name="PreviewTitle" type="Label" parent="Root/Layout/PreviewPanel/PreviewMargin/PreviewVBox"]
+layout_mode = 2
+text = "Preview"
+
+[node name="SlidePanel" type="PanelContainer" parent="Root/Layout/PreviewPanel/PreviewMargin/PreviewVBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="SlideMargin" type="MarginContainer" parent="Root/Layout/PreviewPanel/PreviewMargin/PreviewVBox/SlidePanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="SlideVBox" type="VBoxContainer" parent="Root/Layout/PreviewPanel/PreviewMargin/PreviewVBox/SlidePanel/SlideMargin"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 12
+
+[node name="SlideImage" type="ColorRect" parent="Root/Layout/PreviewPanel/PreviewMargin/PreviewVBox/SlidePanel/SlideMargin/SlideVBox"]
+layout_mode = 2
+custom_minimum_size = Vector2(0, 260)
+size_flags_horizontal = 3
+size_flags_vertical = 3
+color = Color(0.0705882, 0.0431373, 0.0627451, 1)
+
+[node name="SlideHeading" type="Label" parent="Root/Layout/PreviewPanel/PreviewMargin/PreviewVBox/SlidePanel/SlideMargin/SlideVBox"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Slide"
+
+[node name="SlideBody" type="Label" parent="Root/Layout/PreviewPanel/PreviewMargin/PreviewVBox/SlidePanel/SlideMargin/SlideVBox"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Description"
+autowrap_mode = 3
+
+[node name="SlideControls" type="HBoxContainer" parent="Root/Layout/PreviewPanel/PreviewMargin/PreviewVBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 12
+
+[node name="PrevSlideButton" type="Button" parent="Root/Layout/PreviewPanel/PreviewMargin/PreviewVBox/SlideControls"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "◀"
+
+[node name="SlideIndex" type="Label" parent="Root/Layout/PreviewPanel/PreviewMargin/PreviewVBox/SlideControls"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+horizontal_alignment = 1
+text = "1 / 2"
+
+[node name="NextSlideButton" type="Button" parent="Root/Layout/PreviewPanel/PreviewMargin/PreviewVBox/SlideControls"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "▶"
 
 

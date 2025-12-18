@@ -1,0 +1,42 @@
+[gd_scene load_steps=6 format=3 uid="uid://world_shell_0001"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_1"]
+sky_top_color = Color(0.34, 0.38, 0.45, 1)
+sky_horizon_color = Color(0.55, 0.58, 0.62, 1)
+ground_bottom_color = Color(0.02, 0.02, 0.03, 1)
+ground_horizon_color = Color(0.12, 0.12, 0.14, 1)
+
+[sub_resource type="Sky" id="Sky_1"]
+sky_material = SubResource("ProceduralSkyMaterial_1")
+
+[sub_resource type="Environment" id="Environment_1"]
+background_mode = 2
+sky = SubResource("Sky_1")
+fog_enabled = true
+fog_light_color = Color(0.66, 0.70, 0.76, 1)
+fog_density = 0.02
+fog_sun_scatter = 0.12
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_Skyline"]
+albedo_color = Color(0.08, 0.09, 0.10, 1)
+roughness = 0.95
+
+[sub_resource type="BoxMesh" id="BoxMesh_Skyline"]
+size = Vector3(260, 90, 20)
+
+[node name="WorldShell" type="Node3D"]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.866025, -0.25, 0.433013, 0, 0.866025, 0.5, -0.5, -0.433013, 0.75, 0, 30, 0)
+light_energy = 2.1
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_1")
+
+[node name="Skyline" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_Skyline")
+material_override = SubResource("StandardMaterial3D_Skyline")
+position = Vector3(0, 45, -420)
+
+

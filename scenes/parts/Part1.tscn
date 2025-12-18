@@ -3,6 +3,12 @@
 [ext_resource type="Script" path="res://scripts/parts/Part.gd" id="1_partgd"]
 [ext_resource type="PackedScene" path="res://scenes/Player.tscn" id="2_player"]
 
+[sub_resource type="PlaneMesh" id="PlaneMesh_1"]
+size = Vector2(1, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_1"]
+size = Vector3(20, 0.2, 20)
+
 [node name="Part1" type="Node3D"]
 script = ExtResource("1_partgd")
 part_index = 1
@@ -20,10 +26,10 @@ collision_mask = 1
 
 [node name="Mesh" type="MeshInstance3D" parent="Floor"]
 transform = Transform3D(10, 0, 0, 0, 1, 0, 0, 0, 10, 0, 0, 0)
-mesh = PlaneMesh { size = Vector2(1, 1) }
+mesh = SubResource("PlaneMesh_1")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Floor"]
-shape = BoxShape3D { size = Vector3(20, 0.2, 20) }
+shape = SubResource("BoxShape3D_1")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]

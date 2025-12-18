@@ -1,0 +1,179 @@
+[gd_scene load_steps=17 format=3 uid="uid://boat_part1_0001"]
+
+[ext_resource type="Script" path="res://scripts/parts/BoatPart.gd" id="1_boatpart"]
+[ext_resource type="Shader" path="res://assets/shaders/water.gdshader" id="2_water_shader"]
+[ext_resource type="Script" path="res://scripts/levels/NextPartTrigger.gd" id="3_next_trigger"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1"]
+shader = ExtResource("2_water_shader")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_1"]
+size = Vector2(1, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_Boat"]
+albedo_color = Color(0.12, 0.1, 0.09, 1)
+metallic = 0.05
+roughness = 0.75
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_Sail"]
+albedo_color = Color(0.55, 0.52, 0.48, 1)
+roughness = 0.95
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_1"]
+sky_top_color = Color(0.34, 0.38, 0.45, 1)
+sky_horizon_color = Color(0.55, 0.58, 0.62, 1)
+ground_bottom_color = Color(0.02, 0.02, 0.03, 1)
+ground_horizon_color = Color(0.12, 0.12, 0.14, 1)
+
+[sub_resource type="Sky" id="Sky_1"]
+sky_material = SubResource("ProceduralSkyMaterial_1")
+
+[sub_resource type="Environment" id="Environment_1"]
+background_mode = 2
+sky = SubResource("Sky_1")
+fog_enabled = true
+fog_light_color = Color(0.66, 0.70, 0.76, 1)
+fog_density = 0.02
+fog_sun_scatter = 0.12
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_Skyline"]
+albedo_color = Color(0.08, 0.09, 0.10, 1)
+roughness = 0.95
+
+[sub_resource type="BoxMesh" id="BoxMesh_Skyline_Slab"]
+size = Vector3(280, 90, 20)
+
+[sub_resource type="BoxMesh" id="BoxMesh_Skyline_TowerA"]
+size = Vector3(20, 140, 22)
+
+[sub_resource type="BoxMesh" id="BoxMesh_Skyline_TowerB"]
+size = Vector3(26, 110, 18)
+
+[sub_resource type="BoxMesh" id="BoxMesh_Skyline_TowerC"]
+size = Vector3(16, 95, 16)
+
+[sub_resource type="BoxMesh" id="BoxMesh_Hull"]
+size = Vector3(2.2, 0.55, 6.2)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_Mast"]
+top_radius = 0.06
+bottom_radius = 0.08
+height = 3.4
+
+[sub_resource type="QuadMesh" id="QuadMesh_Sail"]
+size = Vector2(2.0, 2.6)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_Arrival"]
+size = Vector3(18, 10, 18)
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_Progressor"]
+radius = 1.5
+
+[node name="Part1" type="Node3D"]
+script = ExtResource("1_boatpart")
+part_index = 1
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.819152, -0.281701, 0.5, 0, 0.871557, 0.490261, -0.573576, -0.401274, 0.714611, 0, 12, 0)
+light_energy = 2.2
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_1")
+
+[node name="Water" type="MeshInstance3D" parent="."]
+mesh = SubResource("PlaneMesh_1")
+material_override = SubResource("ShaderMaterial_1")
+scale = Vector3(220, 1, 220)
+
+[node name="NYCSkyline" type="Node3D" parent="."]
+position = Vector3(0, 0, -900)
+
+[node name="Slab" type="MeshInstance3D" parent="NYCSkyline"]
+mesh = SubResource("BoxMesh_Skyline_Slab")
+material_override = SubResource("StandardMaterial3D_Skyline")
+position = Vector3(0, 45, 0)
+
+[node name="TowerA" type="MeshInstance3D" parent="NYCSkyline"]
+mesh = SubResource("BoxMesh_Skyline_TowerA")
+material_override = SubResource("StandardMaterial3D_Skyline")
+position = Vector3(-65, 70, 2)
+
+[node name="TowerB" type="MeshInstance3D" parent="NYCSkyline"]
+mesh = SubResource("BoxMesh_Skyline_TowerB")
+material_override = SubResource("StandardMaterial3D_Skyline")
+position = Vector3(40, 55, -3)
+
+[node name="TowerC" type="MeshInstance3D" parent="NYCSkyline"]
+mesh = SubResource("BoxMesh_Skyline_TowerC")
+material_override = SubResource("StandardMaterial3D_Skyline")
+position = Vector3(90, 47.5, 4)
+
+[node name="Boat" type="Node3D" parent="."]
+position = Vector3(0, 0.2, 0)
+
+[node name="Hull" type="MeshInstance3D" parent="Boat"]
+mesh = SubResource("BoxMesh_Hull")
+material_override = SubResource("StandardMaterial3D_Boat")
+
+[node name="Deck" type="MeshInstance3D" parent="Boat"]
+mesh = SubResource("BoxMesh_Hull")
+material_override = SubResource("StandardMaterial3D_Boat")
+scale = Vector3(0.92, 0.35, 0.86)
+position = Vector3(0, 0.34, -0.1)
+
+[node name="Mast" type="MeshInstance3D" parent="Boat"]
+mesh = SubResource("CylinderMesh_Mast")
+material_override = SubResource("StandardMaterial3D_Boat")
+position = Vector3(0, 1.8, -0.6)
+
+[node name="Sail" type="MeshInstance3D" parent="Boat"]
+mesh = SubResource("QuadMesh_Sail")
+material_override = SubResource("StandardMaterial3D_Sail")
+position = Vector3(0.0, 2.0, -0.6)
+rotation = Vector3(0, 1.570796, 0)
+
+[node name="CameraPivot" type="Node3D" parent="Boat"]
+position = Vector3(0, 1.4, 0.2)
+
+[node name="SpringArm3D" type="SpringArm3D" parent="Boat/CameraPivot"]
+spring_length = 8.5
+collision_mask = 1
+
+[node name="Camera3D" type="Camera3D" parent="Boat/CameraPivot/SpringArm3D"]
+current = true
+fov = 65.0
+
+[node name="Progressor" type="Area3D" parent="Boat"]
+groups=["progressor"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Boat/Progressor"]
+shape = SubResource("SphereShape3D_Progressor")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="HudLabel" type="Label" parent="CanvasLayer"]
+unique_name_in_owner = true
+anchors_preset = 0
+offset_left = 24.0
+offset_top = 24.0
+offset_right = 860.0
+offset_bottom = 160.0
+text = "Loading..."
+autowrap_mode = 3
+
+[node name="ArrivalTrigger" type="Area3D" parent="."]
+position = Vector3(0, 1.0, -140.0)
+script = ExtResource("3_next_trigger")
+hint_text = "Arrive at Ellis Island (walk/sail into this area)"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ArrivalTrigger"]
+shape = SubResource("BoxShape3D_Arrival")
+
+[node name="HintLabel3D" type="Label3D" parent="ArrivalTrigger"]
+text = "Arrive at Ellis Island"
+billboard = 1
+position = Vector3(0, 4.0, 0)
+outline_size = 2
+
+

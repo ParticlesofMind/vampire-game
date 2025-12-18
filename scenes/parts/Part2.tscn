@@ -1,7 +1,50 @@
-[gd_scene load_steps=4 format=3 uid="uid://part2_0001"]
+[gd_scene load_steps=11 format=3 uid="uid://part2_0001"]
 
 [ext_resource type="Script" path="res://scripts/parts/Part.gd" id="1_partgd"]
 [ext_resource type="PackedScene" path="res://scenes/Player.tscn" id="2_player"]
+[ext_resource type="PackedScene" path="res://scenes/characters/SimpleNPC.tscn" id="3_npc"]
+[ext_resource type="Script" path="res://scripts/ai/QueueController.gd" id="4_queuegd"]
+[ext_resource type="Script" path="res://scripts/levels/NextPartTrigger.gd" id="5_nextgd"]
+[ext_resource type="Script" path="res://scripts/city/EllisIslandWarehouseVisual.gd" id="6_ellis_visual"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_1"]
+size = Vector2(1, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_1"]
+size = Vector3(80, 0.2, 80)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_Floor"]
+albedo_color = Color(0.16, 0.16, 0.17, 1)
+roughness = 0.95
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_Wall"]
+albedo_color = Color(0.22, 0.2, 0.18, 1)
+roughness = 0.9
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_Trim"]
+albedo_color = Color(0.12, 0.1, 0.09, 1)
+roughness = 0.85
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_Exit"]
+size = Vector3(8, 4, 8)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_WallNS"]
+size = Vector3(34, 6, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_WallEW"]
+size = Vector3(1, 6, 36)
+
+[sub_resource type="BoxMesh" id="BoxMesh_WallNS"]
+size = Vector3(34, 6, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_WallEW"]
+size = Vector3(1, 6, 36)
+
+[sub_resource type="BoxMesh" id="BoxMesh_Roof"]
+size = Vector3(34, 1, 36)
+
+[sub_resource type="BoxMesh" id="BoxMesh_Desk"]
+size = Vector3(10, 1, 2)
 
 [node name="Part2" type="Node3D"]
 script = ExtResource("1_partgd")
@@ -12,19 +55,106 @@ transform = Transform3D(0.866025, -0.25, 0.433013, 0, 0.866025, 0.5, -0.5, -0.43
 shadow_enabled = true
 
 [node name="Player" parent="." instance=ExtResource("2_player")]
-position = Vector3(0, 1.2, 3.5)
+position = Vector3(0, 1.2, 12.0)
 
 [node name="Floor" type="StaticBody3D" parent="."]
 collision_layer = 1
 collision_mask = 1
 
 [node name="Mesh" type="MeshInstance3D" parent="Floor"]
-transform = Transform3D(10, 0, 0, 0, 1, 0, 0, 0, 10, 0, 0, 0)
-mesh = PlaneMesh { size = Vector2(1, 1) }
+transform = Transform3D(40, 0, 0, 0, 1, 0, 0, 0, 40, 0, 0, 0)
+mesh = SubResource("PlaneMesh_1")
+material_override = SubResource("StandardMaterial3D_Floor")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Floor"]
-shape = BoxShape3D { size = Vector3(20, 0.2, 20) }
+shape = SubResource("BoxShape3D_1")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0)
+
+[node name="Warehouse" type="Node3D" parent="."]
+position = Vector3(0, 0, -6)
+
+[node name="Walls" type="StaticBody3D" parent="Warehouse"]
+collision_layer = 1
+collision_mask = 1
+
+[node name="WallN_Col" type="CollisionShape3D" parent="Warehouse/Walls"]
+shape = SubResource("BoxShape3D_WallNS")
+position = Vector3(0, 3, -18)
+
+[node name="WallS_Col" type="CollisionShape3D" parent="Warehouse/Walls"]
+shape = SubResource("BoxShape3D_WallNS")
+position = Vector3(0, 3, 18)
+
+[node name="WallE_Col" type="CollisionShape3D" parent="Warehouse/Walls"]
+shape = SubResource("BoxShape3D_WallEW")
+position = Vector3(17, 3, 0)
+
+[node name="WallW_Col" type="CollisionShape3D" parent="Warehouse/Walls"]
+shape = SubResource("BoxShape3D_WallEW")
+position = Vector3(-17, 3, 0)
+
+[node name="Visual" type="Node3D" parent="Warehouse"]
+script = ExtResource("6_ellis_visual")
+
+[node name="Desk" type="MeshInstance3D" parent="Warehouse/Visual"]
+mesh = SubResource("BoxMesh_Desk")
+material_override = SubResource("StandardMaterial3D_Trim")
+position = Vector3(0, 0.5, -14)
+
+[node name="QueueMarkers" type="Node3D" parent="Warehouse"]
+
+[node name="P00" type="Marker3D" parent="Warehouse/QueueMarkers"]
+position = Vector3(-6, 0, 10)
+
+[node name="P01" type="Marker3D" parent="Warehouse/QueueMarkers"]
+position = Vector3(-6, 0, 8)
+
+[node name="P02" type="Marker3D" parent="Warehouse/QueueMarkers"]
+position = Vector3(-6, 0, 6)
+
+[node name="P03" type="Marker3D" parent="Warehouse/QueueMarkers"]
+position = Vector3(-6, 0, 4)
+
+[node name="P04" type="Marker3D" parent="Warehouse/QueueMarkers"]
+position = Vector3(-6, 0, 2)
+
+[node name="P05" type="Marker3D" parent="Warehouse/QueueMarkers"]
+position = Vector3(-6, 0, 0)
+
+[node name="P06" type="Marker3D" parent="Warehouse/QueueMarkers"]
+position = Vector3(-6, 0, -2)
+
+[node name="P07" type="Marker3D" parent="Warehouse/QueueMarkers"]
+position = Vector3(-6, 0, -4)
+
+[node name="P08" type="Marker3D" parent="Warehouse/QueueMarkers"]
+position = Vector3(-6, 0, -6)
+
+[node name="P09" type="Marker3D" parent="Warehouse/QueueMarkers"]
+position = Vector3(-6, 0, -8)
+
+[node name="QueueController" type="Node3D" parent="Warehouse"]
+script = ExtResource("4_queuegd")
+npc_scene = ExtResource("3_npc")
+queue_count = 10
+wander_count = 5
+advance_every_sec = 5.0
+wander_bounds_x = Vector2(-12, 12)
+wander_bounds_z = Vector2(-12, 12)
+
+[node name="ExitTrigger" type="Area3D" parent="Warehouse"]
+script = ExtResource("5_nextgd")
+position = Vector3(0, 1.2, -20)
+hint_text = "Continue to New York City"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Warehouse/ExitTrigger"]
+shape = SubResource("BoxShape3D_Exit")
+
+[node name="HintLabel3D" type="Label3D" parent="Warehouse/ExitTrigger"]
+text = "To New York City"
+billboard = 1
+position = Vector3(0, 3.5, 0)
+outline_size = 2
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
