@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://nyc_proc_tenement_01"]
+
+[ext_resource type="Script" path="res://scripts/city/BuildingGenerator.gd" id="1_gen"]
+
+[node name="Tenement" type="Node3D"]
+script = ExtResource("1_gen")
+width = 12.0
+depth = 14.0
+floor_height = 3.5
+num_floors = 5
+building_type = "Tenement"

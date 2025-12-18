@@ -1,0 +1,21 @@
+[gd_scene load_steps=5 format=3 uid="uid://nyc_demo_scene"]
+
+[ext_resource type="PackedScene" path="res://scenes/city/CityBlock_Generated.tscn" id="1_city"]
+[ext_resource type="PackedScene" path="res://scenes/city/environment/NYC_Environment.tscn" id="2_env"]
+[ext_resource type="PackedScene" path="res://scenes/Player.tscn" id="3_player"]
+[ext_resource type="PackedScene" path="res://scenes/city/landmarks/Landmark_Bridge.tscn" id="4_bridge"]
+[ext_resource type="PackedScene" path="res://scenes/city/environment/DistantCityscape.tscn" id="5_distant"]
+
+[node name="NYCDemo" type="Node3D"]
+
+[node name="WorldEnvironment" parent="." instance=ExtResource("2_env")]
+
+[node name="CityBlockGenerated" parent="." instance=ExtResource("1_city")]
+
+[node name="LandmarkBridge" parent="." instance=ExtResource("4_bridge")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -100)
+
+[node name="DistantCityscape" parent="." instance=ExtResource("5_distant")]
+
+[node name="Player" parent="." instance=ExtResource("3_player")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)

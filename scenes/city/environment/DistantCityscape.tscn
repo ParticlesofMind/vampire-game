@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://nyc_distant_cityscape"]
+
+[ext_resource type="Script" path="res://scripts/city/DistantCityscape.gd" id="1_distant"]
+
+[node name="DistantCityscape" type="Node3D"]
+script = ExtResource("1_distant")
+radius = 150.0
+building_count = 100
+max_height = 60.0

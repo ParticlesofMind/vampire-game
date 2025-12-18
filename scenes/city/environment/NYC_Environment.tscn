@@ -1,0 +1,30 @@
+[gd_scene load_steps=3 format=3 uid="uid://nyc_environment_fog"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_Night"]
+sky_top_color = Color(0.05, 0.05, 0.1, 1)
+sky_horizon_color = Color(0.1, 0.1, 0.15, 1)
+ground_bottom_color = Color(0.02, 0.02, 0.05, 1)
+ground_horizon_color = Color(0.1, 0.1, 0.15, 1)
+
+[sub_resource type="Sky" id="Sky_Night"]
+sky_material = SubResource("ProceduralSkyMaterial_Night")
+
+[sub_resource type="Environment" id="Environment_NYC"]
+background_mode = 2
+sky = SubResource("Sky_Night")
+ambient_light_source = 3
+ambient_light_color = Color(0.1, 0.1, 0.2, 1)
+tonemap_mode = 2
+volumetric_fog_enabled = true
+volumetric_fog_density = 0.02
+volumetric_fog_albedo = Color(0.3, 0.3, 0.35, 1)
+volumetric_fog_emission = Color(0.1, 0.1, 0.1, 1)
+
+[node name="WorldEnvironment" type="WorldEnvironment"]
+environment = SubResource("Environment_NYC")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, -0.75, 0.433013, 0, 10, 0)
+light_color = Color(0.6, 0.6, 0.8, 1)
+light_energy = 0.2
+shadow_enabled = true

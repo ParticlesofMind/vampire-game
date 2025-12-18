@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=3 uid="uid://nyc_city_block_gen"]
+
+[ext_resource type="Script" path="res://scripts/city/CityBlockGenerator.gd" id="1_gen"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_Floor"]
+size = Vector3(200, 0.5, 200)
+
+[node name="CityBlockGenerated" type="Node3D"]
+script = ExtResource("1_gen")
+block_width = 4
+block_depth = 4
+
+[node name="Floor" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor"]
+shape = SubResource("BoxShape3D_Floor")
+
+[node name="FloorMesh" type="CSGBox3D" parent="Floor"]
+size = Vector3(200, 0.5, 200)
+material = null
